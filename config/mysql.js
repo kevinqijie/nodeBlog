@@ -3,6 +3,7 @@ var mysql = require('mysql');
 const {sql} = require('./index')
 var pool  = mysql.createPool({
     connectionLimit : 10,
+    multipleStatements: true,
     ...sql
 });
 
