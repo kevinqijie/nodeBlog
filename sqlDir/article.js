@@ -2,7 +2,7 @@ const {query} = require('../config/mysql')
 
 class Article {
     static page(category, page, callback) {
-        query(`SELECT * FROM article_list WHERE ${category}`, (err, rows, fields) => {
+        query(`SELECT * FROM article_list WHERE category =${category}`, (err, rows, fields) => {
             if (err) {
                 console.log(err);
                 return;
