@@ -12,7 +12,7 @@ class Article {
 
     }
 
-    static add(title, create_user, content, category,description, callback) {
+    static register(title, create_user, content, category,description, callback) {
         let date = new Date()
         let create_time =date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
         query(`INSERT INTO article (title, create_user,content,create_time,category) VALUES( '${title}', '${create_user}','${content}','${create_time}','${category}');
