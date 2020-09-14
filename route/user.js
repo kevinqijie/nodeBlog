@@ -7,14 +7,14 @@ const jwt = require('jsonwebtoken');
 router.post('/login', (req, res) => {
     const {email, password} = req.body
     user.login(email, (row) => {
-        if(row==-1){
+        if (row == -1) {
             res.json({
                 msg: "0",
                 message: '登录失败！'
             })
             return false
         }
-        if(row ==0){
+        if (row == 0) {
             res.json({
                 msg: "0",
                 message: '用户不存在！'
@@ -68,12 +68,27 @@ router.post('/register', (req, res) => {
                 return false
             }
             user.register(email, username, hash, (key) => {
-                res.json({msg: key})
+                res.json({message: key})
             })
         })
     })
     // user.register(title, create_user, content,category, description, (key)=>{
     //     res.json({msg:key})
     // })
+})
+
+router.get('/verificationEmail', (req, res) => {
+    const {email} = req.body
+    user.verificationEmail(email, (key) => {
+        if(key==-1){
+            res.json({message: "未知错误"})
+        }
+        if(key==0){
+            res.json(true)
+        }
+        if(key==1){
+            res.json(false)
+        }
+    })
 })
 module.exports = router;

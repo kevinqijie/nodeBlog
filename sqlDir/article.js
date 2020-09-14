@@ -11,7 +11,6 @@ class Article {
         })
 
     }
-
     static add(title, username, content, category,description,id, callback) {
         query(`
                         INSERT INTO article (title, create_user,content,create_user_id,category) VALUES( '${title}', '${username}','${content}','${id}','${category}');
