@@ -76,6 +76,4 @@ router.post('/register', (req, res) => {
     //     res.json({msg:key})
     // })
 })
-
-
 module.exports = router;
