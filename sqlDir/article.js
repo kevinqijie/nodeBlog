@@ -2,12 +2,22 @@ const {query} = require('../config/mysql')
 
 class Article {
     static page(category, page, callback) {
-        query(`SELECT * FROM article_list WHERE category = ${category} ORDER BY article_id asc limit ${(page-1)*20},20;`, (err, rows, fields) => {
+        let sql = `
+        SELECT * FROM article_list WHERE category = ${category} ORDER BY article_id asc limit ${(page-1)*20},20;
+        SELECT COUNT(1) FROM article_list WHERE category =${category}
+        `
+        if(category== 0){
+            sql = `
+            SELECT * FROM article_list  ORDER BY article_id asc limit ${(page-1)*20},20;
+            SELECT COUNT(1) FROM article_list
+            `
+        }
+        query(sql, (err, rows, fields) => {
             if (err) {
-                console.log(err);
+                callback({msg: "获取失败"});
                 return;
             }
-            callback(rows[0]);
+            callback({data:rows[0],total:rows[1][0]['COUNT(1)']});
         })
 
     }
@@ -29,7 +39,10 @@ class Article {
     static details(id,callback){
         query(`
                     SELECT * FROM article WHERE id = ${id};
-                    select id,title from article where  id = (select id from article where  id>${id}  ORDER BY ID asc LIMIT 1) or id = (select id from article where  id<${id}  ORDER BY ID desc LIMIT 1);
+                    select id,title from article where  id = (select id from article where  id>${id}  ORDER BY ID asc LIMIT 1);
+                    select id,title from article where id  = (select id from article where  id<${id}  ORDER BY ID desc LIMIT 1);
+                    UPDATE article SET read_volume = article.read_volume+1 WHERE id = ${id};
+                    UPDATE article_list SET read_volume = article_list.read_volume+1 WHERE article_id = ${id};
                    `,
             (err, rows, fields) => {
                 if (err) {
@@ -37,7 +50,8 @@ class Article {
                     callback('获取失败');
                     return;
                 }
-                callback({article:rows[0][0],pre:rows[1][0],next:rows[1][1]});
+                console.log(rows)
+                callback({article:rows[0][0],pre:rows[2][0],next:rows[1][0]});
             })
     }
     static delete(id,callback){
@@ -66,6 +80,26 @@ class Article {
                 }
                 callback('操作成功');
             })
+    }
+    static hot(callback){
+        let sql = `SELECT title,article_id,read_volume FROM article_list  ORDER BY read_volume desc limit 0,10;`
+        query(sql, (err, rows, fields) => {
+            if (err) {
+                callback({msg: "获取失败"});
+                return;
+            }
+            callback({data:rows});
+        })
+    }
+    static updateTime(callback){
+        let sql = `SELECT title,article_id,create_time FROM article_list  ORDER BY create_time desc limit 0,10;`
+        query(sql, (err, rows, fields) => {
+            if (err) {
+                callback({msg: "获取失败"});
+                return;
+            }
+            callback({data:rows});
+        })
     }
 }
 

@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3f8c787a-e345-4a79-9eac-e257f0fc1a8f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/route/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/route/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/route/article.js" beforeDir="false" afterPath="$PROJECT_DIR$/route/article.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sqlDir/article.js" beforeDir="false" afterPath="$PROJECT_DIR$/sqlDir/article.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sqlDir/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/sqlDir/user.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +40,17 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.test">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -54,6 +63,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.start" />
         <item itemvalue="npm.test" />
       </list>
     </recent_temporary>
@@ -71,7 +81,8 @@
       <workItem from="1599704757627" duration="4029000" />
       <workItem from="1599724181288" duration="4680000" />
       <workItem from="1599785196985" duration="6822000" />
-      <workItem from="1600047370032" duration="15768000" />
+      <workItem from="1600047370032" duration="18973000" />
+      <workItem from="1600131816774" duration="4811000" />
     </task>
     <servers />
   </component>
