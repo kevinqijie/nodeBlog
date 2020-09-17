@@ -4,7 +4,7 @@ class User {
      * 登录
      */
     static login(email, callback) {
-        query(`SELECT * FROM user WHERE email =${email}`, (err, rows, fields) => {
+        query(`SELECT * FROM user WHERE email = '${email}'`, (err, rows, fields) => {
             if (err) {
                 callback(-1);
 

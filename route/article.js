@@ -65,9 +65,7 @@ router.post('/update',passport.authenticate('jwt', { session: false }),(req,res)
 */
 router.get('/hot',(req,res)=>{
     article.hot((key)=>{
-        res.json({
-            message:key
-        })
+        res.json(key)
     })
 })
 /**
@@ -78,9 +76,7 @@ router.get('/hot',(req,res)=>{
 */
 router.get('/updateTime',(req,res)=>{
     article.updateTime((key)=>{
-        res.json({
-            message:key
-        })
+        res.json(key)
     })
 })
 module.exports = router;

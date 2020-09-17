@@ -22,10 +22,12 @@ class Article {
 
     }
     static add(title, username, content, category,description,id, callback) {
-        query(`
-                        INSERT INTO article (title, create_user,content,create_user_id,category) VALUES( '${title}', '${username}','${content}','${id}','${category}');
+        let sql = `
+                        INSERT INTO article (title, create_user,content,create_user_id,category) VALUES( '${title}', '${username}','${content.replace(/'/g,'"')}','${id}','${category}');
                         select @last := LAST_INSERT_ID();
-                        INSERT INTO article_list ( title,create_user,description,create_user_id,article_id,category)VALUES ( '${title}', '${username}','${description}','${id}',@last,'${category}');`,
+                        INSERT INTO article_list ( title,create_user,description,create_user_id,article_id,category)VALUES ( '${title}', '${username}','${description.replace(/'/g,'"')}','${id}',@last,'${category}');
+                        `
+        query(sql,
             (err, rows, fields) => {
                 if (err) {
                     console.log(err);
@@ -39,8 +41,8 @@ class Article {
     static details(id,callback){
         query(`
                     SELECT * FROM article WHERE id = ${id};
-                    select id,title from article where  id = (select id from article where  id>${id}  ORDER BY ID asc LIMIT 1);
-                    select id,title from article where id  = (select id from article where  id<${id}  ORDER BY ID desc LIMIT 1);
+                    select id,title from article where  id = (select id from article where  id>${id} and category =(select category from article where  id=${id}) ORDER BY ID asc LIMIT 1);
+                    select id,title from article where id  = (select id from article where  id<${id} and category =(select category from article where  id=${id}) ORDER BY ID desc LIMIT 1);
                     UPDATE article SET read_volume = article.read_volume+1 WHERE id = ${id};
                     UPDATE article_list SET read_volume = article_list.read_volume+1 WHERE article_id = ${id};
                    `,
